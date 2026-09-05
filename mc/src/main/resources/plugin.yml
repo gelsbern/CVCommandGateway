@@ -1,5 +1,5 @@
 name: CVCommandGateway
-version: '${project.version}'
+version: 2.0.0-SNAPSHOT
 main: org.nubcraft.cvcommandgateway.paper.CVCommandGatewayPaper
 api-version: '1.21'
 authors: [Greg Elsbernd]
