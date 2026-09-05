@@ -1,5 +1,0 @@
-name: CVCommandGateway
-main: org.cubeville.cvcommandgateway.CVCommandGateway
-version: 1.20
-author: FrediW
-depends: ['CVIPC']

@@ -1,12 +1,7 @@
 name: CVCommandGateway
-main: org.cubeville.cvcommandgateway.CVCommandGateway
-authors: [FrediW]
-version: 1.20
-api-version: 1.20
-
-depends: [CVTools]
-
-commands:
-  cmdtestxxxxx:
-    description: Test
-    permission: cvcommandgateway.test
+version: '${project.version}'
+main: org.nubcraft.cvcommandgateway.paper.CVCommandGatewayPaper
+api-version: '1.21'
+authors: [Greg Elsbernd]
+description: Secure cross-server command routing for NubCraft
+softdepend: [NCRanks, CVWeatherTimeControl]

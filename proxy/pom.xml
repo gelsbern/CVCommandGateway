@@ -1,58 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>org.cubeville.proxy</groupId>
-  <artifactId>CVCommandGateway</artifactId>
-  <version>1.20</version>
-
+  <parent><groupId>org.nubcraft</groupId><artifactId>CVCommandGateway-parent</artifactId><version>2.0.0-SNAPSHOT</version></parent>
+  <artifactId>CVCommandGateway-Velocity</artifactId>
   <dependencies>
-    <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-api</artifactId>
-      <version>1.20-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.md-5</groupId>
-      <artifactId>bungeecord-config</artifactId>
-      <version>1.20-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.cubeville.proxy</groupId>
-      <artifactId>CVIPC</artifactId>
-      <version>1.18</version>
-      <scope>provided</scope>
-    </dependency>
+    <dependency><groupId>com.velocitypowered</groupId><artifactId>velocity-api</artifactId><version>${velocity.version}</version><scope>provided</scope></dependency>
+    <dependency><groupId>redis.clients</groupId><artifactId>jedis</artifactId><version>${jedis.version}</version></dependency>
+    <dependency><groupId>com.google.code.gson</groupId><artifactId>gson</artifactId><version>${gson.version}</version></dependency>
+    <dependency><groupId>org.yaml</groupId><artifactId>snakeyaml</artifactId><version>${snakeyaml.version}</version></dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>bungeecord-repo</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-  </repositories>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  </properties>
-
+  <build><finalName>CVCommandGateway-Velocity</finalName><plugins>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.14.0</version><configuration><release>21</release><annotationProcessorPaths><path><groupId>com.velocitypowered</groupId><artifactId>velocity-api</artifactId><version>${velocity.version}</version></path></annotationProcessorPaths></configuration></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId><version>3.6.1</version><executions><execution><phase>package</phase><goals><goal>shade</goal></goals><configuration><createDependencyReducedPom>false</createDependencyReducedPom><filters><filter><artifact>*:*</artifact><excludes><exclude>META-INF/*.SF</exclude><exclude>META-INF/*.RSA</exclude><exclude>META-INF/*.DSA</exclude></excludes></filter></filters><relocations><relocation><pattern>redis.clients.jedis</pattern><shadedPattern>org.nubcraft.cvcommandgateway.libs.jedis</shadedPattern></relocation><relocation><pattern>com.google.gson</pattern><shadedPattern>org.nubcraft.cvcommandgateway.libs.gson</shadedPattern></relocation><relocation><pattern>org.yaml.snakeyaml</pattern><shadedPattern>org.nubcraft.cvcommandgateway.libs.snakeyaml</shadedPattern></relocation></relocations></configuration></execution></executions></plugin>
+  </plugins></build>
 </project>

@@ -1,0 +1,67 @@
+# CVCommandGateway - copy this file to both the Velocity and Paper plugin folders.
+# The only per-server value is server-name. On Velocity it may remain "proxy".
+server-name: proxy
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  username: ""
+  password: ""
+  # Reuse the existing private Redis credentials without duplicating its password.
+  # Velocity: plugins/ncnetworkstats/config.properties
+  # Paper:    plugins/NCNetworkStats/config.properties
+  credentials-file: plugins/ncnetworkstats/config.properties
+  namespace: nubcraft:commandgateway
+
+# trigger: proxy means Velocity owns the command everywhere.
+# trigger: backend means Paper only intercepts it when the named target is remote.
+# execution may be player, console, ncranks-doctor, or cvweathertimecontrol.
+routes:
+  doctor:
+    commands: [doctor, doc, docs, dr]
+    trigger: backend
+    destination: target-player
+    target-argument: 0
+    local-values: [list, time, me, notify]
+    permission: ncranks.service.dr
+    execution: ncranks-doctor
+
+  instant-day:
+    commands: [instaday]
+    trigger: proxy
+    destination: survival
+    permission: cvweathertimecontrol.instaday
+    local-execution: player
+    remote-execution: cvweathertimecontrol
+
+  instant-night:
+    commands: [instanight]
+    trigger: proxy
+    destination: survival
+    permission: cvweathertimecontrol.instanight
+    local-execution: player
+    remote-execution: cvweathertimecontrol
+
+  instant-sun:
+    commands: [instasun]
+    trigger: proxy
+    destination: survival
+    permission: cvweathertimecontrol.instasun
+    local-execution: player
+    remote-execution: cvweathertimecontrol
+
+  instant-storm:
+    commands: [instastorm]
+    trigger: proxy
+    destination: survival
+    permission: cvweathertimecontrol.instastorm
+    local-execution: player
+    remote-execution: cvweathertimecontrol
+
+# Example for a future safe console command:
+#  example:
+#    commands: [example]
+#    trigger: proxy
+#    destination: survival
+#    permission: nubcraft.example
+#    remote-execution: console
